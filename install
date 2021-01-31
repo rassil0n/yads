@@ -1,0 +1,24 @@
+#!/bin/sh
+
+CONFIGDIR=$HOME/.config/yads
+
+printhelp(){
+cat << EOF
+        USAGE:
+                install -i    install
+                install -u    uninstall
+EOF
+}
+
+if [ "$1" = "-i" ]; then
+        mkdir -p $CONFIGDIR/modules
+        cp ./config $HOME/.config/yads/config
+        cp -r modules/* $HOME/.config/yads/modules
+        cp ./yads $HOME/.local/bin
+
+elif [ "$1" = "-u" ]; then
+        pkill yads
+        rm -r $CONFIGDIR
+        rm $HOME/.local/bin/yads
+
+else    printhelp; fi
